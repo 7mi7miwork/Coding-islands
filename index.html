@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coding Islands</title>
+  <meta name="description" content="Lerne Programmieren wie in Minecraft!"/>
+  <style>
+    :root {
+      --green: #7FFF00;
+      --darkgreen: #5CB300;
+      --brown: #8B4513;
+      --gold: #FFD700;
+      --text: #FFFFFF;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #1a5f3f 0%, #2d8659 50%, #4a9b6f 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .minecraft-border {
+      border: 4px solid #333;
+      box-shadow:
+        inset 3px 3px 0 rgba(255,255,255,0.3),
+        inset -3px -3px 0 rgba(0,0,0,0.4),
+        6px 6px 0 rgba(0,0,0,0.5);
+      background: var(--brown);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .minecraft-button {
+      background: linear-gradient(180deg, var(--green) 0%, var(--darkgreen) 100%);
+      border: 4px solid #333;
+      box-shadow:
+        inset 3px 3px 0 rgba(255,255,255,0.4),
+        inset -3px -3px 0 rgba(0,0,0,0.3),
+        0 6px 0 #4a9000;
+      color: #1a5f3f;
+      font-weight: bold;
+      padding: 0.9rem 1.8rem;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      transition: all 0.1s;
+    }
+    .minecraft-button:hover {
+      background: linear-gradient(180deg, #8FFF10 0%, #6CC310 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 9px 0 #4a9000;
+    }
+    header {
+      background: #333;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 6px 0 #111;
+    }
+    h1, h2, h3 { font-family: "Minecraft", "Arial Black", sans-serif; text-shadow: 3px 3px 0 #000; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
+    .grid { display: grid; gap: 1.5rem; }
+    .islands { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .card {
+      background: #8B4513;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .card:hover { transform: translateY(-8px); }
+    .progress { height: 30px; background: #333; border: 3px solid #000; overflow: hidden; border-radius: 6px; }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--darkgreen));
+      width: 0%;
+      transition: width 1s;
+    }
+    .badge { padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.9rem; }
+    .easy { background: #28a745; }
+    .medium { background: #ffc107; color: #000; }
+    .hard { background: #dc3545; }
+    textarea.monospace {
+      font-family: 'Courier New', monospace;
+      background: #222;
+      color: #7FFF00;
+      border: 3px solid #000;
+      padding: 1rem;
+      width: 100%;
+      min-height: 200px;
+      border-radius: 6px;
+    }
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+      h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="minecraft-border">
+  <h1>Coding Islands</h1>
+  <p>Lerne Python – wie in Minecraft!</p>
+</header>
+
+<div class="container">
+
+  <!-- Dashboard / Inseln -->
+  <section class="grid islands my-5">
+    <div class="card minecraft-border">
+      <h2>Insel der Ankunft</h2>
+      <p>Grundlagen & erster Code</p>
+      <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
+      <button class="minecraft-button mt-3" onclick="showChallenge(1)">Weiter</button>
+    </div>
+    <div class="card minecraft-border">
+      <h2>Insel der Werkzeuge</h2>
+      <p>Block-Coding & Schleifen</p>
+      <div class="progress"><div class="progress-bar" style="width:75%"></div></div>
+      <button class="minecraft-button mt-3" onclick="showChallenge(2)">Weiter</button>
+    </div>
+    <div class="card minecraft-border">
+      <h2>Insel der Technik</h2>
+      <p>Python Basics</p>
+      <div class="progress"><div class="progress-bar" style="width:45%"></div></div>
+    </div>
+    <div class="card minecraft-border">
+      <h2>Insel der Maschinen</h2>
+      <p>Fortgeschrittene Python</p>
+      <div class="progress"><div class="progress-bar" style="width:20%"></div></div>
+    </div>
+    <div class="card minecraft-border">
+      <h2>Insel der Meister</h2>
+      <p>Bonus & Projekte</p>
+      <div class="progress"><div class="progress-bar" style="width:5%"></div></div>
+    </div>
+  </section>
+
+  <!-- Challenge Bereich -->
+  <section id="challenge-section" class="minecraft-border my-5" style="display:none;">
+    <h2 id="challenge-title">Agent 5 Schritte vorwärts bewegen <span class="badge easy">EASY</span></h2>
+    <p id="challenge-desc">Lass deinen Minecraft-Agent 5 Blöcke nach vorne laufen. Verwende eine Schleife!</p>
+
+    <div class="hint minecraft-border my-3 p-3">
+      <strong>Tipp:</strong> Benutze <code>for i in range(5):</code>
+    </div>
+
+    <textarea class="monospace" id="code-editor">from mcpi.minecraft import Minecraft
+mc = Minecraft.create()
+
+# Dein Code hier
+</textarea>
+
+    <button class="minecraft-button my-3" onclick="checkCode()">Code überprüfen</button>
+    <div id="output" class="p-3" style="background:#222; border-radius:6px; min-height:80px;"></div>
+  </section>
+
+  <!-- AI Tutor -->
+  <section class="minecraft-border p-4 my-5">
+    <h2>AI-Tutor (Claude)</h2>
+    <p>Stell mir eine Frage zu deinem Code!</p>
+    <input type="text" id="ai-question" placeholder="z.B. Was macht eine for-Schleife?" style="width:70%; padding:0.8rem; border-radius:6px;" />
+    <button class="minecraft-button" onclick="askAI()">Fragen</button>
+    <div id="ai-answer" class="mt-4 p-3" style="background:#222; border-radius:8px; min-height:100px;"></div>
+  </section>
+
+</div>
+
+<script>
+// === Einfache Challenge-Logik (Demo) ===
+const challenges = [
+  null,
+  { title: "Insel der Ankunft – Erste Schritte", desc: "Bewege den Agent 5 Blöcke vorwärts.", solution: "for i in range(5):" },
+  { title: "Insel der Werkzeuge – Quadrat bauen", desc: "Baue ein 5x5 Quadrat aus Stein.", solution: "for i in range(4):" }
+];
+
+function showChallenge(id) {
+  document.getElementById("challenge-section").style.display = "block";
+  document.getElementById("challenge-title").innerHTML = challenges[id].title + ' <span class="badge easy">EASY</span>';
+  document.getElementById("challenge-desc").textContent = challenges[id].desc;
+  document.getElementById("code-editor").value = `from mcpi.minecraft import Minecraft\nmc = Minecraft.create()\n\n# Dein Code hier\n`;
+}
+
+function checkCode() {
+  const code = document.getElementById("code-editor").value;
+  const output = document.getElementById("output");
+  if (code.includes("range(5)")) {
+    output.innerHTML = "<span style='color:#7FFF00'>Richtig! Super gemacht!</span><br>Du hast 50 XP erhalten!";
+    output.style.color = "#7FFF00";
+  } else {
+    output.innerHTML = "<span style='color:#ff4444'>Noch nicht ganz. Versuche eine for-Schleife mit range(5)!</span>";
+  }
+}
+
+// === ECHTER AI-Tutor mit Anthropic (Claude) ===
+async function askAI() {
+  const question = document.getElementById("ai-question").value;
+  const answerDiv = document.getElementById("ai-answer");
+
+  if (!question) return;
+
+  answerDiv.textContent = "Claude denkt nach...";
+
+  // Hier deinen Anthropic API-Key eintragen (oder leer lassen → Demo-Text)
+  const API_KEY = ""; // ← Deinen Key hier einfügen: "sk-ant-..."
+
+  if (!API_KEY) {
+    // Demo-Antwort ohne echten Key
+    setTimeout(() => {
+      answerDiv.innerHTML = `Hallo! Du hast gefragt: "${question}"<br><br>Super Frage! Eine for-Schleife in Python sieht so aus:<br><br><code style="background:#333;padding:0.5rem;">for i in range(5):<br>    print("Hallo Welt!")</code><br><br>Probier das mal aus!`;
+    }, 800);
+    return;
+  }
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "x-api-key": API_KEY,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "claude-3-haiku-20240307",
+        max_tokens: 1000,
+        temperature: 0.7,
+        system: "Du bist ein freundlicher, motivierender Programmier-Tutor für Kinder (10–16 Jahre). Erkläre alles einfach, benutze Emojis und antworte immer auf Deutsch.",
+        messages: [{ role: "user", content: question }]
+      })
+    });
+
+    const data = await response.json();
+    answerDiv.innerHTML = data.content[0].text.replace(/\n/g, "<br>");
+  } catch (e) {
+    answerDiv.innerHTML = "Fehler beim Kontakt mit dem Tutor. Prüfe deinen API-Key!";
+  }
+}
+</script>
+
+</body>
+</html>
